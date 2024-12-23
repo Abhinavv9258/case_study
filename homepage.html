@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .ack-message {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav nav-pills mb-3" id="nav-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="nav-home-tab" data-bs-toggle="pill" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-registration-tab" data-bs-toggle="pill" href="#nav-registration" role="tab"
+                aria-controls="nav-registration" aria-selected="false">Registration</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-login-tab" data-bs-toggle="pill" href="#nav-login" role="tab"
+                aria-controls="nav-login" aria-selected="false">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-reservation-tab" data-bs-toggle="pill" href="#nav-reservation" role="tab"
+                aria-controls="nav-reservation" aria-selected="false">Reservation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-history-tab" data-bs-toggle="pill" href="#nav-history" role="tab"
+                aria-controls="nav-history" aria-selected="false">History</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-billing-tab" data-bs-toggle="pill" href="#nav-billing" role="tab"
+                aria-controls="nav-billing" aria-selected="false">Billing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-support-tab" data-bs-toggle="pill" href="#nav-support" role="tab"
+                aria-controls="nav-support" aria-selected="false">Support</a>
+        </li>
+        <li class="nav-item" id="logoutTabItem" style="display:none;">
+            <a class="nav-link" id="nav-logout-tab" href="#" role="tab" aria-controls="nav-logout"
+                aria-selected="false">Logout</a>
+        </li>
+
+
+    </ul>
+
+    <div class="tab-content" id="nav-tabContent">
+        <!-- Homepage -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="container mt-5">
+                <h2>Welcome to Hotel Management System</h2>
+            </div>
+        </div>
+
+        <!-- Registration -->
+        <div class="tab-pane fade" id="nav-registration" role="tabpanel"
+            aria-labelledby="nav-registration-tab">
+            <div class="container mt-5">
+                <h2>Customer Registration</h2>
+                <form id="registrationForm">
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">Customer Name</label>
+                        <input type="text" id="customerName" class="form-control" maxlength="50" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobileNumber" class="form-label">Mobile Number</label>
+                        <div class="input-group">
+                            <select class="form-select" id="countryCode" required>
+                                <option value="+1">+1</option>
+                                <option value="+91">+91</option>
+                                <option value="+44">+44</option>
+                            </select>
+                            <input type="text" id="mobileNumber" class="form-control" maxlength="10" pattern="\d{10}"
+                                required placeholder="Enter 10-digit number">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" id="address" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" maxlength="30"
+                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{1,}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" maxlength="30" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </form>
+                <div id="acknowledgment" class="mt-4 d-none">
+                    <p class="ack-message">Customer Registration successful.</p>
+                    <p><strong>Customer ID:</strong> <span id="generatedUserId" class="text-success"></span></p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Login -->
+        <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+            <div class="container mt-5">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginUserId" class="form-label">User ID</label>
+                        <input type="text" id="loginUserId" class="form-control" minlength="5" maxlength="20" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" maxlength="30" required>
+                        <!-- pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{1,}" -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Reservation -->
+        <div class="tab-pane fade" id="nav-reservation" role="tabpanel" aria-labelledby="nav-reservation-tab">
+            <div class="container mt-5">
+                <h2>Reservation</h2>
+                <form id="reservationForm">
+                    <div class="mb-3">
+                        <label for="checkInDate" class="form-label">Check-In Date</label>
+                        <input type="date" id="checkInDate" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="checkOutDate" class="form-label">Check-Out Date</label>
+                        <input type="date" id="checkOutDate" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roomPreference" class="form-label">Room Preference</label>
+                        <select id="roomPreference" class="form-select" required>
+                            <option value="Single">Single</option>
+                            <option value="Double">Double</option>
+                            <option value="Suite">Suite</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reservationName" class="form-label">Name</label>
+                        <input type="text" id="reservationName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reservationContact" class="form-label">Contact</label>
+                        <input type="text" id="reservationContact" class="form-control" pattern="\d{10}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- History -->
+        <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+            <div class="container mt-5">
+                <h2>History</h2>
+            </div>
+        </div>
+
+        <!-- Billing -->
+        <div class="tab-pane fade" id="nav-billing" role="tabpanel" aria-labelledby="nav-billing-tab">
+            <div class="container mt-5">
+                <h2>Billing</h2>
+            </div>
+        </div>
+
+        <!-- Support -->
+        <div class="tab-pane fade" id="nav-support" role="tabpanel" aria-labelledby="nav-support-tab">
+            <div class="container mt-5">
+                <h2>Support</h2>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="nav-logout" role="tabpanel" aria-labelledby="nav-logout-tab">
+            <div class="container mt-5">
+                <h2>You are logged in!</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/assets/js/script.js"></script>
+
+
+    <!-- <script>
+        $(document).ready(function () {
+            $("#registrationForm").on("submit", function (e) {
+                e.preventDefault();
+                const generatedId = Math.floor(Math.random() * 1000000);
+                $("#generatedUserId").text(generatedId);
+                $("#acknowledgment").removeClass("d-none");
+            });
+
+            $("#loginForm").on("submit", function (e) {
+                e.preventDefault();
+                alert("Login Successful");
+            });
+
+            $("#reservationForm").on("submit", function (e) {
+                e.preventDefault();
+                alert("Reservation Successful");
+            });
+        });
+    </script> -->
+</body>
+
+</html>
